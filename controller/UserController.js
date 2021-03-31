@@ -5,7 +5,7 @@ exports.signInUser = async(req,res,next) => {
     try{
 
         let {
-            username,
+            name,
             imageUrl,
             googleId
         } = req.body;
@@ -16,7 +16,7 @@ exports.signInUser = async(req,res,next) => {
 
         if(!existingUser){
             const user = await User.create({
-                username,
+                username:name,
                 profilePic:imageUrl,
                 googleId
             });

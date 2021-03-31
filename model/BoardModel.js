@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const BoardSchema = new mongoose.Schema({
-  googleId:{
+  googleid:{
       type:String
   },
   board:{

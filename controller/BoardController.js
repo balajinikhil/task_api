@@ -12,7 +12,7 @@ exports.getBoard = async(req,res,next)=>{
             });
         }else{
             const newBoard = await Board.create({
-                googleId:googleId
+                googleid:googleId
             });
             
             res.status(201).json({
@@ -32,6 +32,8 @@ exports.boardList = async(req,res,next)=>{
         let boards = await Board.find({
             googleId:googleId
         });
+        
+        console.log(boards)
 
         res.status(200).json({
             status:'success',
