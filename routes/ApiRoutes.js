@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const {signInUser} = require('../controller/UserController');
-const {getBoard,boardList,createNewBoard,singleBoard} = require('../controller/BoardController');
+const {getBoard,boardList,createNewBoard,singleBoard,updateBoard} = require('../controller/BoardController');
 
 
 router.post('/singin', signInUser);
@@ -10,6 +10,7 @@ router.get('/boards/list', boardList);
 
 router.post('/board-new', createNewBoard);
 router.get('/board-new/:id', singleBoard);
+router.post('/update-board/:id', updateBoard);
 
 module.exports = router;
 

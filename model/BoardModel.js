@@ -7,9 +7,6 @@ const BoardSchema = new mongoose.Schema({
   board:{
     tasks:{
         type:Object,
-        default:{
-            'task-1': { id: 'task-1', content: 'Task1', teamImg:'/images/alphabet.png' },
-          }
     },
     columns:{
         type:Object,
@@ -17,7 +14,7 @@ const BoardSchema = new mongoose.Schema({
             'column-1': {
               id: 'column-1',
               title: 'To do',
-              taskIds: ['task-1'],
+              taskIds: [],
             },
             'column-2': {
                 id: 'column-2',
