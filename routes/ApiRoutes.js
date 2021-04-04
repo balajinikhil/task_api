@@ -1,12 +1,15 @@
 const router = require('express').Router();
 const passport = require('passport');
 const {signInUser} = require('../controller/UserController');
-const {getBoard,boardList} = require('../controller/BoardController');
+const {getBoard,boardList,createNewBoard,singleBoard} = require('../controller/BoardController');
 
 
 router.post('/singin', signInUser);
-router.get('/board', getBoard);
+// router.get('/board', getBoard);
 router.get('/boards/list', boardList);
+
+router.post('/board-new', createNewBoard);
+router.get('/board-new/:id', singleBoard);
 
 module.exports = router;
 
