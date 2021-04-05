@@ -1,3 +1,5 @@
+const randomString = require('randomstring');
+
 const Board = require('../model/BoardModel');
 const User = require('../model/UserModel');
 
@@ -126,5 +128,61 @@ exports.updateBoard = async(req,res,next)=>{
         }
     }catch(err){
         next(err);
+    }
+}
+
+exports.inviteUser = async(req,res,next)=>{
+    try{
+        const user = await User.findOne({
+            googleId:req.headers.authorization
+        });
+        if(!user){
+            res.status(200).json({
+                message:'Unauthorized, Login in again'
+            })
+        }else{
+            const board = await Board.findByIdAndUpdate(
+                req.params.id, 
+                {inviteLink:randomstring.generate()}
+                );
+
+            res.status(201).json({
+                message:"success",
+                inviteLink:board.inviteLink
+            });    
+        }
+    }catch(err){
+        next(err);
+    }
+
+}
+
+exports.acceptInviteUser = async(req,res,next)=>{
+    try{
+        const user = await User.findOne({
+            googleId:req.headers.authorization
+        });
+        if(!user){
+            res.status(200).json({
+                message:'Unauthorized, Login in again'
+            })
+        }else{
+            let board = await Board.findOne({
+                inviteLink:req.params.link
+            });
+
+            if(!board){
+                res.status(200).json({
+                    success:'Failed',
+                    message:"board doesn't exists anymore"
+                })
+            }else{
+               board.users.push(req.headers.authorization);
+               await board.save();
+            }
+        }
+
+    }catch(err){
+        next(err)
     }
 }
