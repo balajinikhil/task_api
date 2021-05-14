@@ -7,7 +7,8 @@ const {getBoard,
     singleBoard,
     updateBoard,
     inviteUser,
-    acceptInviteUser
+    acceptInviteUser,
+    deleteBoard
 } = require('../controller/BoardController');
 
 
@@ -18,6 +19,8 @@ router.get('/boards/list', boardList);
 router.post('/board-new', createNewBoard);
 router.get('/board-new/:id', singleBoard);
 router.post('/update-board/:id', updateBoard);
+
+router.delete('/board/delete/:id', deleteBoard);
 
 router.get('/invite/:id', inviteUser);
 router.get('/accept-invite/:link',  acceptInviteUser);

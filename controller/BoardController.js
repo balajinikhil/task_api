@@ -43,14 +43,11 @@ exports.boardList = async(req,res,next)=>{
         }else{
 
             let {googleId} = req.query;
-            console.log(googleId);
-
+            
             let boards = await Board.find({
                 googleid:`${googleId}`
             });
             
-            console.log(boards)
-
             res.status(200).json({
                 status:'success',
                 length:boards.length,
@@ -120,7 +117,6 @@ exports.updateBoard = async(req,res,next)=>{
             })
         }else{
             let {id} = req.params;
-            console.log(req.body);
             let board = await Board.updateOne({_id:req.params.id},{board:req.body});
             res.status(200).json({
                 message:'updated'
@@ -184,5 +180,28 @@ exports.acceptInviteUser = async(req,res,next)=>{
 
     }catch(err){
         next(err)
+    }
+}
+
+exports.deleteBoard = async(req,res,next)=>{
+    try{
+        const user = await User.findOne({
+            googleId:req.headers.authorization
+        });
+        if(!user){
+            res.status(200).json({
+                message:'Unauthorized, Login in again'
+            })
+        }else{
+            const board = await Board.findById(req.headers.board);
+            console.log(board.board.tasks);
+
+            res.status(200).json({
+                status:'dev'
+            })
+        }
+
+    }catch(err){
+        next(err);
     }
 }
